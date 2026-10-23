@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090711">
+<title>Painel de Likes • Free Fire</title>
+<style>
+:root{color-scheme:dark;--bg:#090711;--panel:#151020;--purple:#9b5cff;--text:#f8f4ff;--muted:#aaa0bd;--line:#39264f;--green:#61e6a3;--red:#ff6b86}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#32164d 0,transparent 48%),var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:520px;margin:auto;min-height:100vh;padding:22px 17px 96px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:22px}.brand{font-size:12px;letter-spacing:.2em;color:#cbb9ec;font-weight:800}.brand strong{display:block;font-size:21px;letter-spacing:.07em;color:white}.pill{font-size:11px;border:1px solid #594070;color:#d8c3ff;border-radius:999px;padding:6px 10px;background:#1a1029}.hero{text-align:center;padding:22px 15px 24px;border:1px solid #58347a;border-radius:25px;background:linear-gradient(155deg,#21132f,#110d1c 68%);box-shadow:0 0 28px #8a35ff20;position:relative;overflow:hidden}.heart{font-size:56px;line-height:1.2;filter:drop-shadow(0 0 14px #a34cff)}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.23em;color:#c4a1ff;margin:12px 0 5px}.hero h1{font-size:clamp(26px,7vw,35px);line-height:1.05;margin:0;text-transform:uppercase;text-shadow:0 0 18px #a84dff77}.hero p{margin:10px 0 0;color:#c4bad5;font-size:14px}.card{margin-top:17px;border:1px solid var(--line);border-radius:20px;padding:19px;background:linear-gradient(145deg,#181223,#100d18)}.label{display:block;font-size:13px;font-weight:700;margin-bottom:9px}.input-wrap{display:flex;align-items:center;gap:10px;border:1px solid #4b3566;background:#0d0a14;border-radius:13px;padding:0 13px}.input-wrap span{color:#ba8cff}.input-wrap input{width:100%;min-width:0;background:transparent;color:white;border:0;outline:0;padding:15px 0;font-size:16px}.input-wrap:focus-within{border-color:#b47aff;box-shadow:0 0 0 3px #a34cff20}.hint{color:var(--muted);font-size:12px;margin:8px 1px 0}.stats{display:flex;justify-content:space-between;align-items:center;margin:18px 0 14px;gap:10px}.stats span{color:var(--muted);font-size:13px}.count{border:1px solid #5e3b80;border-radius:10px;background:#27163b;color:#e6d3ff;padding:7px 11px;font-size:13px;font-weight:800}.primary{width:100%;border:0;border-radius:14px;padding:15px 18px;font-weight:900;color:white;background:linear-gradient(100deg,#7136d6,#b348f2);box-shadow:0 7px 22px #8e3be83b}.primary:disabled{opacity:.55;cursor:not-allowed}.secondary{border:1px solid #594070;background:#21172e;color:#e8d9ff;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:700}.notice{margin-top:12px;padding:11px 12px;border-radius:12px;background:#21172e;color:#c6bad8;font-size:12px;border:1px solid #382749}.section-title{font-size:17px;margin:0 0 13px}.muted{color:var(--muted)}.empty{padding:23px 10px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed #443253;border-radius:13px}.item{padding:13px 0;border-bottom:1px solid #2d223a;display:flex;justify-content:space-between;gap:10px;align-items:center}.item:last-child{border-bottom:0}.item strong{display:block;font-size:14px;overflow-wrap:anywhere}.item small{color:var(--muted);font-size:12px}.status{font-size:11px;border-radius:999px;padding:5px 8px;border:1px solid #6b4a24;background:#302215;color:#ffd58b;white-space:nowrap}.setting{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid #30243d}.setting strong{font-size:14px;display:block}.setting small{display:block;color:var(--muted);font-size:12px;margin-top:3px}.toggle{width:46px;height:27px;border:1px solid #59466b;border-radius:99px;background:#33283f;padding:3px;flex-shrink:0}.toggle:after{content:"";display:block;width:19px;height:19px;border-radius:50%;background:#a99ab9;transition:transform .15s}.toggle.on{background:#6736a3;border-color:#a96dff}.toggle.on:after{transform:translateX(19px);background:#fff}.bottom{position:fixed;bottom:0;left:0;right:0;padding:10px 12px max(10px,env(safe-area-inset-bottom));background:#0b0812ed;border-top:1px solid #30203f;backdrop-filter:blur(16px);z-index:5}.nav{max-width:520px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.navbtn{border:0;border-radius:12px;padding:9px 4px;background:transparent;color:#8f839f;font-size:11px;font-weight:700}.navbtn .ico{display:block;font-size:19px;margin-bottom:2px}.navbtn.active{background:#28183a;color:#e4c8ff}.page{display:none}.page.active{display:block}.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 30px);max-width:480px;padding:13px 15px;border-radius:13px;background:#2c1a3d;border:1px solid #8052a8;box-shadow:0 8px 30px #0008;z-index:10;font-size:13px;display:none}.toast.show{display:block}.toast strong{display:block;margin-bottom:3px}.footer-note{text-align:center;color:#796d8b;font-size:11px;margin-top:20px}.authrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.authrow button{flex:1;min-width:130px}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><strong>FREE FIRE</strong>FAN PANEL • EM DESENVOLVIMENTO</div><div class="pill" id="modePill">● NÃO CONECTADO</div></header>
+<main>
+<section class="page active" id="home">
+<div class="hero"><div class="heart" aria-hidden="true">💜</div><div class="eyebrow">RECONHECIMENTO PARA SEU PERFIL</div><h1>Painel de Likes</h1><p>Visual gamer • integração em desenvolvimento.</p></div>
+<div class="card">
+<h2 class="section-title">Sua conta</h2><p id="userStatus" class="muted" style="font-size:13px">Entre com Google para habilitar o histórico privado.</p>
+<div class="authrow"><button class="primary" id="loginBtn">Entrar com Google</button><button class="secondary" id="logoutBtn" hidden>Sair</button></div>
+<div class="notice">O login só funciona quando este site é aberto por um endereço HTTPS autorizado no Firebase Hosting; não teste abrindo o arquivo localmente.</div>
+</div>
+<div class="card">
+<label class="label" for="playerId">ID do jogador</label><div class="input-wrap"><span>⌕</span><input id="playerId" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="Digite o ID do Free Fire"></div>
+<div class="hint">Digite apenas os números do ID. Nunca informe senha, token ou código da sua conta de jogo.</div>
+<div class="stats"><span>Likes reais</span><div class="count">Indisponível</div></div>
+<button class="primary" id="sendBtn">♡ &nbsp; Registrar tentativa</button>
+<div class="notice">⚠️ Este painel ainda não envia likes reais. O botão apenas registra uma tentativa no seu histórico privado do Firebase.</div>
+</div>
+<div class="card"><h2 class="section-title">Como funciona</h2><div class="item"><div><strong>1. Entre com Google</strong><small>Para identificar sua conta.</small></div><span>01</span></div><div class="item"><div><strong>2. Informe o ID</strong><small>O painel valida o formato.</small></div><span>02</span></div><div class="item"><div><strong>3. Histórico privado</strong><small>As tentativas ficam na sua conta Firebase.</small></div><span>03</span></div></div>
+</section>
+<section class="page" id="history"><div class="card"><h2 class="section-title">Histórico de tentativas</h2><p class="muted" style="font-size:13px;margin-top:-5px">As entradas não significam que um like foi enviado.</p><div id="historyList" class="empty">Entre com Google para carregar seu histórico.</div><button class="secondary" id="clearHistory" style="margin-top:14px">Limpar meu histórico</button></div></section>
+<section class="page" id="settings"><div class="card"><h2 class="section-title">Configurações</h2><div class="setting"><div><strong>Efeitos visuais</strong><small>Realce neon no painel.</small></div><button class="toggle on" id="glowToggle" aria-label="Alternar efeitos visuais" aria-pressed="true"></button></div><div class="setting"><div><strong>Confirmar antes de registrar</strong><small>Mostrar aviso antes de criar uma tentativa.</small></div><button class="toggle" id="confirmToggle" aria-label="Alternar confirmação" aria-pressed="false"></button></div><div class="setting"><div><strong>Sobre o projeto</strong><small>Versão 0.2 • Firebase em preparação.</small></div><span class="pill">v0.2</span></div><div class="notice">Este painel não solicita nem armazena senhas de Free Fire e ainda não envia likes reais.</div></div></section>
+</main><div class="footer-note">PROJETO INDEPENDENTE • ENVIO DE LIKES NÃO CONFIGURADO</div>
+</div>
+<nav class="bottom" aria-label="Navegação principal"><div class="nav"><button class="navbtn active" data-page="home"><span class="ico">⌂</span>Início</button><button class="navbtn" data-page="history"><span class="ico">◷</span>Histórico</button><button class="navbtn" data-page="settings"><span class="ico">⚙</span>Configurações</button></div></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCz_jA_rAUFuygRyoVNvGKygIYIvxc0weU",
+  authDomain: "painel-likes-ff.firebaseapp.com",
+  projectId: "painel-likes-ff",
+  storageBucket: "painel-likes-ff.firebasestorage.app",
+  messagingSenderId: "98242660220",
+  appId: "1:98242660220:web:f8fc1b0b17bc43dafe06f9",
+  measurementId: "G-0JE8LPC92Q"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = id => document.getElementById(id);
+const toast = $("toast");
+let currentUser = null, confirmBefore = false, glow = true, entries = [];
+
+function showToast(title, message) {
+  toast.replaceChildren();
+  const strong = document.createElement("strong"); strong.textContent = title;
+  const span = document.createElement("span"); span.textContent = message;
+  toast.append(strong, span); toast.classList.add("show");
+}
+function hideToast(){toast.classList.remove("show")}
+function toggle(button, fn){const on=button.classList.toggle("on");button.setAttribute("aria-pressed",String(on));fn(on)}
+function friendlyError(err){
+  if(err?.code === "auth/unauthorized-domain") return "Este endereço ainda não está autorizado no Firebase Authentication.";
+  if(err?.code === "auth/operation-not-allowed") return "O provedor Google não está ativado no Firebase.";
+  if(err?.code === "permission-denied" || err?.code === "firestore/permission-denied") return "O Firestore bloqueou a operação. As regras seguras ainda precisam ser publicadas.";
+  return err?.message || "Ocorreu um erro inesperado.";
+}
+document.querySelectorAll(".navbtn").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b===btn));
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===btn.dataset.page));
+  hideToast();
+}));
+function renderHistory(){
+  const list=$("historyList");
+  if(!currentUser){list.className="empty";list.textContent="Entre com Google para carregar seu histórico.";return}
+  if(!entries.length){list.className="empty";list.textContent="Nenhuma tentativa registrada ainda.";return}
+  list.className="";list.replaceChildren();
+  entries.forEach(entry=>{
+    const row=document.createElement("div");row.className="item";
+    const info=document.createElement("div"), strong=document.createElement("strong"), small=document.createElement("small");
+    strong.textContent="ID: "+entry.playerId;
+    const dt=entry.createdAt?.toDate ? entry.createdAt.toDate() : null;
+    small.textContent=dt ? dt.toLocaleString("pt-BR") : "Data registrada no Firebase";
+    info.append(strong,small);
+    const status=document.createElement("span");status.className="status";status.textContent="Não enviado";
+    row.append(info,status);list.append(row);
+  });
+}
+async function loadHistory(){
+  if(!currentUser){entries=[];renderHistory();return}
+  const q=query(collection(db,"users",currentUser.uid,"history"),orderBy("createdAt","desc"));
+  const snap=await getDocs(q);entries=snap.docs.map(d=>({docId:d.id,...d.data()}));renderHistory();
+}
+$("loginBtn").addEventListener("click",async()=>{
+  try{await signInWithRedirect(auth,new GoogleAuthProvider())}catch(e){showToast("Falha no login",friendlyError(e))}
+});
+$("logoutBtn").addEventListener("click",async()=>{try{await signOut(auth);showToast("Sessão encerrada","Você saiu da sua conta.")}catch(e){showToast("Erro ao sair",friendlyError(e))}});
+getRedirectResult(auth).catch(e=>showToast("Não foi possível entrar",friendlyError(e)));
+onAuthStateChanged(auth,async user=>{
+  currentUser=user;
+  $("loginBtn").hidden=!!user;$("logoutBtn").hidden=!user;
+  $("userStatus").textContent=user ? `Conectado como ${user.displayName || user.email || "usuário Google"}.` : "Entre com Google para habilitar o histórico privado.";
+  $("modePill").textContent=user ? "● CONECTADO" : "● NÃO CONECTADO";
+  if(user){try{await loadHistory()}catch(e){entries=[];renderHistory();showToast("Histórico indisponível",friendlyError(e))}}
+  else {entries=[];renderHistory()}
+});
+$("sendBtn").addEventListener("click",async()=>{
+  const id=$("playerId").value.trim();
+  if(!/^\d{5,24}$/.test(id)){showToast("Confira o ID","Digite um ID numérico com 5 a 24 dígitos.");$("playerId").focus();return}
+  if(!currentUser){showToast("Entre primeiro","Faça login com Google para registrar uma tentativa.");return}
+  if(confirmBefore&&!window.confirm(`Registrar uma tentativa para o ID ${id}? Nenhum like real será enviado.`))return;
+  try{
+    await addDoc(collection(db,"users",currentUser.uid,"history"),{playerId:id,status:"not_sent",createdAt:serverTimestamp()});
+    await loadHistory();$("playerId").value="";
+    showToast("Tentativa registrada","Salva no seu histórico privado. Nenhum like foi enviado.");
+  }catch(e){showToast("Não foi possível salvar",friendlyError(e))}
+});
+$("clearHistory").addEventListener("click",async()=>{
+  if(!currentUser){showToast("Entre primeiro","Faça login para acessar seu histórico.");return}
+  if(!entries.length){showToast("Histórico vazio","Não há tentativas para apagar.");return}
+  if(!window.confirm("Apagar todas as tentativas do seu histórico?"))return;
+  try{
+    for(const entry of entries){await deleteDoc(doc(db,"users",currentUser.uid,"history",entry.docId))}
+    entries=[];renderHistory();showToast("Histórico limpo","Suas tentativas foram removidas.");
+  }catch(e){showToast("Não foi possível apagar",friendlyError(e))}
+});
+$("glowToggle").addEventListener("click",()=>toggle($("glowToggle"),on=>{document.querySelectorAll(".hero,.card").forEach(el=>el.style.boxShadow=on?"":"none");glow=on}));
+$("confirmToggle").addEventListener("click",()=>toggle($("confirmToggle"),on=>{confirmBefore=on}));
+</script>
+</body>
+</html>
