@@ -9,8 +9,7 @@
 :root{color-scheme:dark;--bg:#090711;--panel:#151020;--purple:#9b5cff;--text:#f8f4ff;--muted:#aaa0bd;--line:#39264f;--green:#61e6a3;--red:#ff6b86}
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(ellipse at 50% -10%,#32164d 0,transparent 48%),var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
-button,input{font:inherit}
-button{cursor:pointer}
+button,input{font:inherit}button{cursor:pointer}
 .app{max-width:520px;margin:auto;min-height:100vh;padding:22px 17px 96px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:22px}
 .brand{font-size:12px;letter-spacing:.2em;color:#cbb9ec;font-weight:800}
@@ -55,11 +54,9 @@ button{cursor:pointer}
 .navbtn{border:0;border-radius:12px;padding:9px 4px;background:transparent;color:#8f839f;font-size:11px;font-weight:700}
 .navbtn .ico{display:block;font-size:19px;margin-bottom:2px}
 .navbtn.active{background:#28183a;color:#e4c8ff}
-.page{display:none}
-.page.active{display:block}
+.page{display:none}.page.active{display:block}
 .toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:calc(100% - 30px);max-width:480px;padding:13px 15px;border-radius:13px;background:#2c1a3d;border:1px solid #8052a8;box-shadow:0 8px 30px #0008;z-index:10;font-size:13px;display:none}
-.toast.show{display:block}
-.toast strong{display:block;margin-bottom:3px}
+.toast.show{display:block}.toast strong{display:block;margin-bottom:3px}
 .footer-note{text-align:center;color:#796d8b;font-size:11px;margin-top:20px}
 .authrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .authrow button{flex:1;min-width:130px}
@@ -76,3 +73,315 @@ button{cursor:pointer}
 <div class="authrow"><button class="primary" id="loginBtn">Entrar com Google</button><button class="secondary" id="logoutBtn" hidden>Sair</button></div>
 <div class="notice">O login só funciona quando este site é aberto por um endereço HTTPS autorizado no Firebase Hosting; não teste abrindo o arquivo localmente.</div>
 </div>
+<div class="card">
+<label class="label" for="playerId">ID do jogador</label><div class="input-wrap"><span>⌕</span><input id="playerId" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="Digite o ID do Free Fire"></div>
+<div class="hint">Digite apenas os números do ID. Nunca informe senha, token ou código da sua conta de jogo.</div>
+<div class="stats"><span>Likes reais</span><div class="count">Indisponível</div></div>
+<button class="primary" id="sendBtn">♡ &nbsp; Registrar tentativa</button>
+<div class="notice">⚠️ Este painel ainda não envia likes reais. O botão apenas registra uma tentativa no seu histórico privado do Firebase.</div>
+</div>
+<div class="card"><h2 class="section-title">Como funciona</h2><div class="item"><div><strong>1. Entre com Google</strong><small>Para identificar sua conta.</small></div><span>01</span></div><div class="item"><div><strong>2. Informe o ID</strong><small>O painel valida o formato.</small></div><span>02</span></div><div class="item"><div><strong>3. Histórico privado</strong><small>As tentativas ficam na sua conta Firebase.</small></div><span>03</span></div></div>
+</section><section class="page" id="history">
+<div class="card">
+<h2 class="section-title">Histórico de tentativas</h2>
+<p class="muted" style="font-size:13px;margin-top:-5px">As entradas não significam que um like foi enviado.</p>
+<div id="historyList" class="empty">Entre com Google para carregar seu histórico.</div>
+<button class="secondary" id="clearHistory" style="margin-top:14px">Limpar meu histórico</button>
+</div>
+</section>
+
+<section class="page" id="settings">
+<div class="card">
+<h2 class="section-title">Configurações</h2>
+<div class="setting">
+<div><strong>Efeitos visuais</strong><small>Realce neon no painel.</small></div>
+<button class="toggle on" id="glowToggle" aria-label="Alternar efeitos visuais" aria-pressed="true"></button>
+</div>
+<div class="setting">
+<div><strong>Confirmar antes de registrar</strong><small>Mostrar aviso antes de criar uma tentativa.</small></div>
+<button class="toggle" id="confirmToggle" aria-label="Alternar confirmação" aria-pressed="false"></button>
+</div>
+<div class="setting">
+<div><strong>Sobre o projeto</strong><small>Versão 0.2 • Firebase em preparação.</small></div>
+<span class="pill">v0.2</span>
+</div>
+<div class="notice">Este painel não solicita nem armazena senhas de Free Fire e ainda não envia likes reais.</div>
+</div>
+</section>
+</main>
+
+<div class="footer-note">PROJETO INDEPENDENTE • ENVIO DE LIKES NÃO CONFIGURADO</div>
+</div>
+
+<nav class="bottom" aria-label="Navegação principal">
+<div class="nav">
+<button class="navbtn active" data-page="home"><span class="ico">⌂</span>Início</button>
+<button class="navbtn" data-page="history"><span class="ico">◷</span>Histórico</button>
+<button class="navbtn" data-page="settings"><span class="ico">⚙</span>Configurações</button>
+</div>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import {
+  getAuth, GoogleAuthProvider, signInWithRedirect,
+  getRedirectResult, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+import {
+  getFirestore, collection, addDoc, getDocs, deleteDoc,
+  doc, serverTimestamp, query, orderBy
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCz_jA_rAUFuygRyoVNvGKygIYIvxc0weU",
+  authDomain: "painel-likes-ff.firebaseapp.com",
+  projectId: "painel-likes-ff",
+  storageBucket: "painel-likes-ff.firebasestorage.app",
+  messagingSenderId: "98242660220",
+  appId: "1:98242660220:web:f8fc1b0b17bc43dafe06f9",
+  measurementId: "G-0JE8LPC92Q"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = id => document.getElementById(id);
+const toast = $("toast");
+
+let currentUser = null;
+let confirmBefore = false;
+let entries = [];
+
+function showToast(title, message) {
+  toast.replaceChildren();
+  const strong = document.createElement("strong");
+  strong.textContent = title;
+  const span = document.createElement("span");
+  span.textContent = message;
+  toast.append(strong, span);
+  toast.classList.add("show");
+}
+
+function hideToast() {
+  toast.classList.remove("show");
+}
+
+function toggle(button, fn) {
+  const on = button.classList.toggle("on");
+  button.setAttribute("aria-pressed", String(on));
+  fn(on);
+}
+
+function friendlyError(err) {
+  if (err?.code === "auth/unauthorized-domain")
+    return "Este endereço ainda não está autorizado no Firebase Authentication.";
+  if (err?.code === "auth/operation-not-allowed")
+    return "O provedor Google não está ativado no Firebase.";
+  if (err?.code === "permission-denied")
+    return "O Firestore bloqueou a operação. Confira as regras de segurança.";
+  return err?.message || "Ocorreu um erro inesperado.";
+}
+
+document.querySelectorAll(".navbtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".navbtn").forEach(b =>
+      b.classList.toggle("active", b === btn)
+    );
+    document.querySelectorAll(".page").forEach(p =>
+      p.classList.toggle("active", p.id === btn.dataset.page)
+    );
+    hideToast();
+  });
+});
+
+function renderHistory() {
+  const list = $("historyList");
+
+  if (!currentUser) {
+    list.className = "empty";
+    list.textContent = "Entre com Google para carregar seu histórico.";
+    return;
+  }
+
+  if (!entries.length) {
+    list.className = "empty";
+    list.textContent = "Nenhuma tentativa registrada ainda.";
+    return;
+  }
+
+  list.className = "";
+  list.replaceChildren();
+
+  entries.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "item";
+
+    const info = document.createElement("div");
+    const strong = document.createElement("strong");
+    const small = document.createElement("small");
+
+    strong.textContent = "ID: " + entry.playerId;
+    const dt = entry.createdAt?.toDate ? entry.createdAt.toDate() : null;
+    small.textContent = dt
+      ? dt.toLocaleString("pt-BR")
+      : "Data registrada no Firebase";
+
+    info.append(strong, small);
+
+    const status = document.createElement("span");
+    status.className = "status";
+    status.textContent = "Não enviado";
+
+    row.append(info, status);
+    list.append(row);
+  });
+}
+
+async function loadHistory() {
+  if (!currentUser) {
+    entries = [];
+    renderHistory();
+    return;
+  }
+
+  const q = query(
+    collection(db, "users", currentUser.uid, "history"),
+    orderBy("createdAt", "desc")
+  );
+
+  const snap = await getDocs(q);
+  entries = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+  renderHistory();
+}
+
+$("loginBtn").addEventListener("click", async () => {
+  try {
+    await signInWithRedirect(auth, new GoogleAuthProvider());
+  } catch (e) {
+    showToast("Falha no login", friendlyError(e));
+  }
+});
+
+$("logoutBtn").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+    showToast("Sessão encerrada", "Você saiu da sua conta.");
+  } catch (e) {
+    showToast("Erro ao sair", friendlyError(e));
+  }
+});
+
+getRedirectResult(auth).catch(e =>
+  showToast("Não foi possível entrar", friendlyError(e))
+);
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  $("loginBtn").hidden = !!user;
+  $("logoutBtn").hidden = !user;
+
+  $("userStatus").textContent = user
+    ? `Conectado como ${user.displayName || user.email || "usuário Google"}.`
+    : "Entre com Google para habilitar o histórico privado.";
+
+  $("modePill").textContent = user
+    ? "● CONECTADO"
+    : "● NÃO CONECTADO";
+
+  if (user) {
+    try {
+      await loadHistory();
+    } catch (e) {
+      entries = [];
+      renderHistory();
+      showToast("Histórico indisponível", friendlyError(e));
+    }
+  } else {
+    entries = [];
+    renderHistory();
+  }
+});$("sendBtn").addEventListener("click", async () => {
+  const id = $("playerId").value.trim();
+
+  if (!/^\d{5,24}$/.test(id)) {
+    showToast("Confira o ID", "Digite um ID numérico com 5 a 24 dígitos.");
+    $("playerId").focus();
+    return;
+  }
+
+  if (!currentUser) {
+    showToast("Entre primeiro", "Faça login com Google para registrar uma tentativa.");
+    return;
+  }
+
+  if (confirmBefore && !window.confirm(
+    `Registrar uma tentativa para o ID ${id}? Nenhum like real será enviado.`
+  )) return;
+
+  try {
+    await addDoc(
+      collection(db, "users", currentUser.uid, "history"),
+      {
+        playerId: id,
+        status: "not_sent",
+        createdAt: serverTimestamp()
+      }
+    );
+
+    await loadHistory();
+    $("playerId").value = "";
+    showToast(
+      "Tentativa registrada",
+      "Salva no seu histórico privado. Nenhum like foi enviado."
+    );
+  } catch (e) {
+    showToast("Não foi possível salvar", friendlyError(e));
+  }
+});
+
+$("clearHistory").addEventListener("click", async () => {
+  if (!currentUser) {
+    showToast("Entre primeiro", "Faça login para acessar seu histórico.");
+    return;
+  }
+
+  if (!entries.length) {
+    showToast("Histórico vazio", "Não há tentativas para apagar.");
+    return;
+  }
+
+  if (!window.confirm("Apagar todas as tentativas do seu histórico?")) return;
+
+  try {
+    for (const entry of entries) {
+      await deleteDoc(
+        doc(db, "users", currentUser.uid, "history", entry.docId)
+      );
+    }
+
+    entries = [];
+    renderHistory();
+    showToast("Histórico limpo", "Suas tentativas foram removidas.");
+  } catch (e) {
+    showToast("Não foi possível apagar", friendlyError(e));
+  }
+});
+
+$("glowToggle").addEventListener("click", () => {
+  toggle($("glowToggle"), on => {
+    document.querySelectorAll(".hero,.card").forEach(el => {
+      el.style.boxShadow = on ? "" : "none";
+    });
+  });
+});
+
+$("confirmToggle").addEventListener("click", () => {
+  toggle($("confirmToggle"), on => {
+    confirmBefore = on;
+  });
+});
+</script>
+</body>
+</html>
