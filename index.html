@@ -275,7 +275,6 @@ function goPage(pageId) {
   });
 }
 
-/* Navegação — registrada cedo, mesmo se o Firebase falhar depois */
 ["navHome", "navHistory", "navSettings"].forEach(function (id) {
   const btn = $(id);
   if (btn) {
@@ -548,4 +547,43 @@ try {
       return;
     }
     if (!entries.length) {
-     
+      showToast("Histórico vazio", "Não há registros.");
+      return;
+     }
+    if (!window.confirm("Apagar todo o histórico?")) return;
+    try {
+      for (var i = 0; i < entries.length; i++) {
+        await deleteDoc(doc(db, "users", currentUser.uid, "history", entries[i].docId));
+      }
+      entries = [];
+      renderHistory();
+      showToast("Histórico limpo", "Registros removidos.");
+    } catch (error) {
+      showToast("Erro", friendlyError(error));
+    }
+  });
+
+  $("glowToggle").addEventListener("click", function () {
+    const button = $("glowToggle");
+    const on = button.classList.toggle("on");
+    button.setAttribute("aria-pressed", String(on));
+    document.querySelectorAll(".hero, .card").forEach(function (element) {
+      element.style.boxShadow = on ? "" : "none";
+    });
+  });
+
+  $("confirmToggle").addEventListener("click", function () {
+    const button = $("confirmToggle");
+    confirmBefore = button.classList.toggle("on");
+    button.setAttribute("aria-pressed", String(confirmBefore));
+  });
+
+  showToast("Painel pronto", "Navegação e login ativos.");
+} catch (err) {
+  showBanner("Erro ao carregar o painel: " + (err && err.message ? err.message : String(err)));
+  showToast("Erro no script", String(err));
+}
+</script>
+</body>
+</html>
+
