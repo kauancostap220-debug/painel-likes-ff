@@ -17,9 +17,7 @@
   --border: #59251a;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -31,13 +29,8 @@ body {
     var(--bg);
 }
 
-button, input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
+button, input { font: inherit; }
+button { cursor: pointer; }
 
 .app {
   max-width: 520px;
@@ -123,9 +116,7 @@ button {
   font-size: 17px;
 }
 
-.muted {
-  color: var(--muted);
-}
+.muted { color: var(--muted); }
 
 .label {
   display: block;
@@ -144,9 +135,7 @@ button {
   background: #100a08;
 }
 
-.input-wrap span {
-  color: var(--orange);
-}
+.input-wrap span { color: var(--orange); }
 
 .input-wrap input {
   width: 100%;
@@ -243,9 +232,7 @@ button {
   border-bottom: 1px solid #3a241b;
 }
 
-.item:last-child {
-  border-bottom: 0;
-}
+.item:last-child { border-bottom: 0; }
 
 .item strong {
   display: block;
@@ -328,13 +315,8 @@ button {
   background: white;
 }
 
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
+.page { display: none; }
+.page.active { display: block; }
 
 .bottom {
   position: fixed;
@@ -403,9 +385,7 @@ button {
   font-size: 13px;
 }
 
-.toast.show {
-  display: block;
-}
+.toast.show { display: block; }
 
 .toast strong {
   display: block;
@@ -413,10 +393,7 @@ button {
 }
 
 @media (max-width: 360px) {
-  .hero h1 {
-    font-size: 27px;
-  }
-
+  .hero h1 { font-size: 27px; }
   .app {
     padding-right: 12px;
     padding-left: 12px;
@@ -431,7 +408,7 @@ button {
 <header class="top">
   <div class="brand">
     <strong>FREE FIRE</strong>
-    FAN PANEL • EM DESENVOLVIMENTO
+    FAN PANEL
   </div>
   <div class="pill" id="modePill">● NÃO CONECTADO</div>
 </header>
@@ -443,20 +420,20 @@ button {
     <div class="heart" aria-hidden="true">👑💗</div>
     <div class="eyebrow">FAN PANEL • PROJETO INDEPENDENTE</div>
     <h1>Painel de Likes</h1>
-    <p>Consulte seu perfil e acompanhe suas tentativas.</p>
+    <p>Informe o ID, envie likes e acompanhe o resultado real da API.</p>
   </div>
 
   <div class="card">
     <h2 class="section-title">Sua conta</h2>
     <p id="userStatus" class="muted">
-      Entre com Google para habilitar o histórico privado.
+      Entre com Google para enviar likes e salvar o histórico.
     </p>
     <div class="authrow">
       <button class="primary" id="loginBtn">Entrar com Google</button>
       <button class="secondary" id="logoutBtn" hidden>Sair</button>
     </div>
     <div class="notice">
-      Entre com Google para salvar seu histórico privado.
+      O envio usa o servidor (Cloudflare Worker). A chave da API não fica no site.
     </div>
   </div>
 
@@ -465,16 +442,23 @@ button {
     <div class="input-wrap">
       <span>⌕</span>
       <input id="playerId" inputmode="numeric" autocomplete="off"
-        maxlength="24" placeholder="Digite o ID do Free Fire">
+        maxlength="15" placeholder="Digite o ID do Free Fire">
     </div>
-    <p class="hint">Digite apenas os números do ID.</p>
+    <p class="hint">Apenas números. Região: BR.</p>
     <div class="stats">
       <span>Envio de likes</span>
-      <div class="count">Não configurado</div>
+      <div class="count" id="sendStatus">Pacote padrão (200lk)</div>
     </div>
-    <button class="primary" id="sendBtn">♡ Registrar tentativa</button>
-    <div class="notice">
-      O envio de likes reais ainda não está conectado. Este botão registra apenas uma tentativa.
+
+    <div id="adminBox" class="notice" hidden style="margin-bottom:12px">
+      <strong>Modo administrador</strong><br>
+      Conta ADM detectada no servidor. A Ghost X só oferece o pacote padrão (200lk)
+      e 1 entrega por UID por dia. 1000/2000/3000 não são suportados pelo provedor.
+    </div>
+
+    <button class="primary" id="sendBtn">♡ Enviar likes</button>
+    <div class="notice" id="sendNotice">
+      É preciso estar logado. O painel mostra apenas os likes que a API confirmar.
     </div>
   </div>
 
@@ -483,21 +467,21 @@ button {
     <div class="item">
       <div>
         <strong>1. Entre com Google</strong>
-        <small>Para identificar sua conta.</small>
+        <small>Identifica sua conta e o histórico.</small>
       </div>
       <span>01</span>
     </div>
     <div class="item">
       <div>
         <strong>2. Informe o ID</strong>
-        <small>Digite apenas os números do jogador.</small>
+        <small>Digite o UID numérico do jogador.</small>
       </div>
       <span>02</span>
     </div>
     <div class="item">
       <div>
-        <strong>3. Consulte seu histórico</strong>
-        <small>Veja suas tentativas registradas.</small>
+        <strong>3. Envie e confira</strong>
+        <small>Veja likes enviados e o histórico.</small>
       </div>
       <span>03</span>
     </div>
@@ -507,9 +491,9 @@ button {
 
 <section class="page" id="history">
   <div class="card">
-    <h2 class="section-title">Histórico de tentativas</h2>
+    <h2 class="section-title">Histórico</h2>
     <p class="muted">
-      Os registros não significam que um like foi enviado.
+      Cada registro mostra o resultado informado pela API.
     </p>
     <div id="historyList" class="empty">
       Entre com Google para carregar seu histórico.
@@ -536,8 +520,8 @@ button {
 
     <div class="setting">
       <div>
-        <strong>Confirmar antes de registrar</strong>
-        <small>Mostrar confirmação antes de criar uma tentativa.</small>
+        <strong>Confirmar antes de enviar</strong>
+        <small>Pedir confirmação antes do envio.</small>
       </div>
       <button class="toggle" id="confirmToggle"
         aria-label="Alternar confirmação"
@@ -549,18 +533,18 @@ button {
         <strong>Sobre o projeto</strong>
         <small>Projeto independente.</small>
       </div>
-      <span class="pill">v0.3</span>
+      <span class="pill">v0.4</span>
     </div>
 
     <div class="notice">
-      O envio de likes reais ainda não está configurado.
+      Envio real via Worker + Ghost X (pacote 200lk). Limite do provedor: 1 vez por UID/dia.
     </div>
   </div>
 </section>
 </main>
 
 <div class="footer-note">
-  PROJETO INDEPENDENTE • LIKES REAIS NÃO CONFIGURADOS
+  PROJETO INDEPENDENTE • ENVIO VIA API DO SERVIDOR
 </div>
 </div>
 
@@ -614,6 +598,8 @@ const firebaseConfig = {
   measurementId: "G-0JE8LPC92Q"
 };
 
+const WORKER_URL = "https://painel-likes-backend.kauancostap220.workers.dev";
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -623,6 +609,7 @@ const $ = id => document.getElementById(id);
 let currentUser = null;
 let confirmBefore = false;
 let entries = [];
+let isAdmin = false;
 
 function showToast(title, message) {
   const toast = $("toast");
@@ -636,22 +623,29 @@ function showToast(title, message) {
 
   toast.append(strong, span);
   toast.classList.add("show");
+
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => toast.classList.remove("show"), 6000);
 }
 
 function friendlyError(error) {
   if (error?.code === "auth/unauthorized-domain") {
     return "Este domínio não está autorizado no Firebase Authentication.";
   }
-
   if (error?.code === "auth/operation-not-allowed") {
     return "Ative o login com Google no Firebase Authentication.";
   }
-
   if (error?.code === "permission-denied") {
     return "O Firestore bloqueou a operação. Confira as regras de segurança.";
   }
-
   return error?.message || "Ocorreu um erro inesperado.";
+}
+
+function updateSendStatusLabel() {
+  if (!$("sendStatus")) return;
+  $("sendStatus").textContent = isAdmin
+    ? "ADM • pacote padrão (200lk)"
+    : "Pacote padrão (200lk)";
 }
 
 /* Navegação */
@@ -660,7 +654,6 @@ document.querySelectorAll(".navbtn").forEach(button => {
     document.querySelectorAll(".navbtn").forEach(item => {
       item.classList.toggle("active", item === button);
     });
-
     document.querySelectorAll(".page").forEach(page => {
       page.classList.toggle("active", page.id === button.dataset.page);
     });
@@ -679,7 +672,7 @@ function renderHistory() {
 
   if (!entries.length) {
     list.className = "empty";
-    list.textContent = "Nenhuma tentativa registrada ainda.";
+    list.textContent = "Nenhum envio registrado ainda.";
     return;
   }
 
@@ -694,21 +687,33 @@ function renderHistory() {
     const strong = document.createElement("strong");
     const small = document.createElement("small");
 
-    strong.textContent = "ID: " + entry.playerId;
+    const nick = entry.nickname ? " (" + entry.nickname + ")" : "";
+    strong.textContent = "ID: " + entry.playerId + nick;
 
     const date = entry.createdAt?.toDate
       ? entry.createdAt.toDate()
       : null;
 
-    small.textContent = date
-      ? date.toLocaleString("pt-BR")
-      : "Data registrada no Firebase";
+    let detail = date ? date.toLocaleString("pt-BR") : "Registrado";
+    if (entry.likesGiven != null) {
+      detail += " • +" + entry.likesGiven + " likes";
+    }
+    if (entry.orderNo) {
+      detail += " • Pedido " + entry.orderNo;
+    }
+    small.textContent = detail;
 
     info.append(strong, small);
 
     const status = document.createElement("span");
     status.className = "status";
-    status.textContent = "Não enviado";
+    if (entry.success) {
+      status.textContent = "Enviado";
+    } else if (entry.error === "ja_recebeu_hoje" || entry.status === 2) {
+      status.textContent = "Já recebeu hoje";
+    } else {
+      status.textContent = "Falhou";
+    }
 
     row.append(info, status);
     list.append(row);
@@ -728,13 +733,34 @@ async function loadHistory() {
   );
 
   const snapshot = await getDocs(historyQuery);
-
   entries = snapshot.docs.map(item => ({
     docId: item.id,
     ...item.data()
   }));
-
   renderHistory();
+}
+
+async function refreshAdminFlag(user) {
+  isAdmin = false;
+  if ($("adminBox")) $("adminBox").hidden = true;
+  updateSendStatusLabel();
+
+  if (!user) return;
+
+  try {
+    const token = await user.getIdToken();
+    const res = await fetch(WORKER_URL + "/api/admin/status", {
+      headers: { Authorization: "Bearer " + token }
+    });
+    const data = await res.json();
+    isAdmin = !!(data && data.ok && data.isAdmin);
+    if ($("adminBox")) $("adminBox").hidden = !isAdmin;
+    updateSendStatusLabel();
+  } catch (e) {
+    isAdmin = false;
+    if ($("adminBox")) $("adminBox").hidden = true;
+    updateSendStatusLabel();
+  }
 }
 
 /* Login Google */
@@ -746,7 +772,6 @@ $("loginBtn").addEventListener("click", async () => {
   }
 });
 
-/* Sair */
 $("logoutBtn").addEventListener("click", async () => {
   try {
     await signOut(auth);
@@ -756,12 +781,10 @@ $("logoutBtn").addEventListener("click", async () => {
   }
 });
 
-/* Resultado do redirecionamento do Google */
 getRedirectResult(auth).catch(error => {
   showToast("Não foi possível entrar", friendlyError(error));
 });
 
-/* Estado da autenticação */
 onAuthStateChanged(auth, async user => {
   currentUser = user;
 
@@ -770,11 +793,9 @@ onAuthStateChanged(auth, async user => {
 
   $("userStatus").textContent = user
     ? "Conectado como " + (user.displayName || user.email || "usuário Google") + "."
-    : "Entre com Google para habilitar o histórico privado.";
+    : "Entre com Google para enviar likes e salvar o histórico.";
 
-  $("modePill").textContent = user
-    ? "● CONECTADO"
-    : "● NÃO CONECTADO";
+  $("modePill").textContent = user ? "● CONECTADO" : "● NÃO CONECTADO";
 
   if (user) {
     try {
@@ -784,121 +805,95 @@ onAuthStateChanged(auth, async user => {
       renderHistory();
       showToast("Histórico indisponível", friendlyError(error));
     }
+    await refreshAdminFlag(user);
   } else {
     entries = [];
     renderHistory();
+    await refreshAdminFlag(null);
   }
 });
 
-/* Registra tentativa, sem enviar likes reais */
+/* Enviar likes reais via Worker */
 $("sendBtn").addEventListener("click", async () => {
   const id = $("playerId").value.trim();
 
-  if (!/^\d{5,24}$/.test(id)) {
-    showToast(
-      "Confira o ID",
-      "Digite um ID numérico com 5 a 24 dígitos."
-    );
+  if (!/^\d{5,15}$/.test(id)) {
+    showToast("Confira o ID", "Digite um ID numérico com 5 a 15 dígitos.");
     $("playerId").focus();
     return;
   }
 
   if (!currentUser) {
-    showToast(
-      "Entre primeiro",
-      "Faça login com Google para registrar uma tentativa."
-    );
+    showToast("Entre primeiro", "Faça login com Google para enviar likes.");
     return;
   }
 
   if (
     confirmBefore &&
-    !window.confirm(
-      "Registrar uma tentativa para o ID " + id +
-      "? Nenhum like real será enviado."
-    )
+    !window.confirm("Enviar likes para o ID " + id + " (região BR)?")
   ) {
     return;
   }
 
   const button = $("sendBtn");
   button.disabled = true;
+  if ($("sendStatus")) $("sendStatus").textContent = "Enviando...";
 
   try {
+    const token = await currentUser.getIdToken();
+
+    const res = await fetch(WORKER_URL + "/api/likes/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
+      },
+      body: JSON.stringify({
+        uid: id,
+        region: "BR"
+      })
+    });
+
+    const data = await res.json();
+
     await addDoc(
       collection(db, "users", currentUser.uid, "history"),
       {
         playerId: id,
-        status: "not_sent",
+        region: "BR",
+        success: !!data.ok,
+        status: data.status ?? null,
+        error: data.error || null,
+        message: data.message || null,
+        nickname: data.nickname || null,
+        likesBefore: data.likesBefore ?? null,
+        likesGiven: data.likesGiven ?? null,
+        likesAfter: data.likesAfter ?? null,
+        orderNo: data.orderNo || null,
+        charged: data.charged ?? null,
+        balance: data.balance ?? null,
+        role: data.role || "user",
         createdAt: serverTimestamp()
       }
     );
 
     await loadHistory();
-    $("playerId").value = "";
 
-    showToast(
-      "Tentativa registrada",
-      "Salva no histórico. Nenhum like real foi enviado."
-    );
-  } catch (error) {
-    showToast("Não foi possível salvar", friendlyError(error));
-  } finally {
-    button.disabled = false;
-  }
-});
-
-/* Limpar histórico */
-$("clearHistory").addEventListener("click", async () => {
-  if (!currentUser) {
-    showToast("Entre primeiro", "Faça login para acessar seu histórico.");
-    return;
-  }
-
-  if (!entries.length) {
-    showToast("Histórico vazio", "Não há tentativas para apagar.");
-    return;
-  }
-
-  if (!window.confirm("Apagar todas as tentativas do seu histórico?")) {
-    return;
-  }
-
-  try {
-    for (const entry of entries) {
-      await deleteDoc(
-        doc(db, "users", currentUser.uid, "history", entry.docId)
+    if (data.ok && data.status === 1) {
+      showToast(
+        "Likes enviados",
+        "Enviados: " + (data.likesGiven ?? "?") +
+        " | Antes: " + (data.likesBefore ?? "?") +
+        " | Depois: " + (data.likesAfter ?? "?") +
+        (data.orderNo ? " | Pedido: " + data.orderNo : "")
       );
-    }
-
-    entries = [];
-    renderHistory();
-
-    showToast("Histórico limpo", "Suas tentativas foram removidas.");
-  } catch (error) {
-    showToast("Não foi possível apagar", friendlyError(error));
-  }
-});
-
-/* Efeitos visuais */
-$("glowToggle").addEventListener("click", () => {
-  const button = $("glowToggle");
-  const on = button.classList.toggle("on");
-
-  button.setAttribute("aria-pressed", String(on));
-
-  document.querySelectorAll(".hero, .card").forEach(element => {
-    element.style.boxShadow = on ? "" : "none";
-  });
-});
-
-/* Confirmação antes de registrar */
-$("confirmToggle").addEventListener("click", () => {
-  const button = $("confirmToggle");
-  confirmBefore = button.classList.toggle("on");
-
-  button.setAttribute("aria-pressed", String(confirmBefore));
-});
-</script>
-</body>
-</html>
+      $("playerId").value = "";
+    } else if (data.error === "ja_recebeu_hoje" || data.status === 2) {
+      showToast(
+        "Já recebeu hoje",
+        data.message || "Este UID já recebeu likes hoje no provedor."
+      );
+    } else if (data.error === "token_ausente" || data.error === "token_invalido") {
+      showToast("Sessão", "Faça login novamente e tente de novo.");
+    } else if (data.error === "ghostx_nao_configurado") {
+      showToast("Servidor", "Chave Ghost X não configurada no Worke
