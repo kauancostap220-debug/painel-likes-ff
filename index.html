@@ -5,588 +5,234 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090707">
 <title>Free Fire Fan Panel</title>
-
 <style>
 :root {
   --bg: #090707;
-  --panel: #17100e;
-  --red: #ff392f;
   --orange: #ff8424;
   --text: #fff7f2;
   --muted: #c5aaa0;
   --border: #59251a;
 }
-
 * { box-sizing: border-box; }
-
 body {
   margin: 0;
   min-height: 100vh;
   color: var(--text);
   font-family: Arial, sans-serif;
-  background:
-    radial-gradient(ellipse at top, #50130e, transparent 55%),
-    var(--bg);
+  background: radial-gradient(ellipse at top, #50130e, transparent 55%), var(--bg);
 }
-
 button, input { font: inherit; }
 button { cursor: pointer; }
-
-.app {
-  max-width: 520px;
-  margin: auto;
-  padding: 20px 16px 100px;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
-}
-
-.brand {
-  color: #ffb6a0;
-  font-size: 10px;
-  letter-spacing: 2px;
-  font-weight: bold;
-}
-
-.brand strong {
-  display: block;
-  font-size: 22px;
-  color: white;
-  text-shadow: 0 0 14px #ff392f;
-}
-
-.pill {
-  padding: 7px 10px;
-  border: 1px solid #a43b2b;
-  border-radius: 20px;
-  background: #28100f;
-  color: #ffd2bf;
-  font-size: 10px;
-}
-
+.app { max-width: 520px; margin: auto; padding: 20px 16px 100px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 22px; }
+.brand { color: #ffb6a0; font-size: 10px; letter-spacing: 2px; font-weight: bold; }
+.brand strong { display: block; font-size: 22px; color: white; text-shadow: 0 0 14px #ff392f; }
+.pill { padding: 7px 10px; border: 1px solid #a43b2b; border-radius: 20px; background: #28100f; color: #ffd2bf; font-size: 10px; }
 .hero {
-  padding: 28px 16px;
-  text-align: center;
-  border: 1px solid #a9362d;
-  border-radius: 24px;
-  background: linear-gradient(155deg, #451511, #1b0b0a);
-  box-shadow: 0 0 25px #ff392f25;
+  padding: 28px 16px; text-align: center; border: 1px solid #a9362d; border-radius: 24px;
+  background: linear-gradient(155deg, #451511, #1b0b0a); box-shadow: 0 0 25px #ff392f25;
 }
-
-.heart {
-  font-size: 55px;
-  filter: drop-shadow(0 0 14px #ff6a2b);
-}
-
-.eyebrow {
-  margin: 12px 0 7px;
-  color: #ffad78;
-  font-size: 10px;
-  font-weight: bold;
-  letter-spacing: 3px;
-}
-
-.hero h1 {
-  margin: 0;
-  font-size: 32px;
-  text-transform: uppercase;
-  text-shadow: 0 0 18px #ff392f66;
-}
-
-.hero p {
-  color: #d9c2bb;
-  font-size: 13px;
-}
-
+.heart { font-size: 55px; filter: drop-shadow(0 0 14px #ff6a2b); }
+.eyebrow { margin: 12px 0 7px; color: #ffad78; font-size: 10px; font-weight: bold; letter-spacing: 3px; }
+.hero h1 { margin: 0; font-size: 32px; text-transform: uppercase; text-shadow: 0 0 18px #ff392f66; }
+.hero p { color: #d9c2bb; font-size: 13px; }
 .card {
-  margin-top: 17px;
-  padding: 19px;
-  border: 1px solid var(--border);
-  border-radius: 19px;
+  margin-top: 17px; padding: 19px; border: 1px solid var(--border); border-radius: 19px;
   background: linear-gradient(145deg, #211310, #100a09);
 }
-
-.section-title {
-  margin: 0 0 13px;
-  font-size: 17px;
-}
-
+.section-title { margin: 0 0 13px; font-size: 17px; }
 .muted { color: var(--muted); }
-
-.label {
-  display: block;
-  margin-bottom: 9px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
+.label { display: block; margin-bottom: 9px; font-size: 13px; font-weight: bold; }
 .input-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 13px;
-  border: 1px solid #63301f;
-  border-radius: 13px;
-  background: #100a08;
+  display: flex; align-items: center; gap: 10px; padding: 0 13px;
+  border: 1px solid #63301f; border-radius: 13px; background: #100a08;
 }
-
 .input-wrap span { color: var(--orange); }
-
 .input-wrap input {
-  width: 100%;
-  min-width: 0;
-  padding: 15px 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: white;
+  width: 100%; min-width: 0; padding: 15px 0; border: 0; outline: 0;
+  background: transparent; color: white;
 }
-
-.hint {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.stats {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 18px 0 14px;
-}
-
-.stats span {
-  color: var(--muted);
-  font-size: 13px;
-}
-
+.hint { margin-top: 8px; color: var(--muted); font-size: 12px; }
+.stats { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 18px 0 14px; }
+.stats span { color: var(--muted); font-size: 13px; }
 .count {
-  padding: 7px 11px;
-  border: 1px solid #a43b2b;
-  border-radius: 10px;
-  background: #32110e;
-  color: #ffd4bc;
-  font-size: 12px;
-  font-weight: bold;
+  padding: 7px 11px; border: 1px solid #a43b2b; border-radius: 10px;
+  background: #32110e; color: #ffd4bc; font-size: 12px; font-weight: bold;
 }
-
 .primary {
-  width: 100%;
-  padding: 15px;
-  border: 0;
-  border-radius: 13px;
-  background: linear-gradient(100deg, #d92323, #ff8424);
-  color: white;
-  font-weight: bold;
+  width: 100%; padding: 15px; border: 0; border-radius: 13px;
+  background: linear-gradient(100deg, #d92323, #ff8424); color: white; font-weight: bold;
   box-shadow: 0 7px 22px #ff392f35;
 }
-
-.primary:disabled {
-  opacity: .55;
-  cursor: not-allowed;
-}
-
+.primary:disabled { opacity: .55; cursor: not-allowed; }
 .secondary {
-  padding: 10px 12px;
-  border: 1px solid #713722;
-  border-radius: 10px;
-  background: #2b120f;
-  color: #ffe1d1;
-  font-size: 13px;
+  padding: 10px 12px; border: 1px solid #713722; border-radius: 10px;
+  background: #2b120f; color: #ffe1d1; font-size: 13px;
 }
-
 .notice {
-  margin-top: 12px;
-  padding: 11px 12px;
-  border: 1px solid #4c291c;
-  border-radius: 12px;
-  background: #28120f;
-  color: #e0c2b5;
-  font-size: 12px;
+  margin-top: 12px; padding: 11px 12px; border: 1px solid #4c291c; border-radius: 12px;
+  background: #28120f; color: #e0c2b5; font-size: 12px;
 }
-
-.authrow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.authrow button {
-  flex: 1;
-  min-width: 130px;
-}
-
+.authrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.authrow button { flex: 1; min-width: 130px; }
 .item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 0;
-  border-bottom: 1px solid #3a241b;
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 13px 0; border-bottom: 1px solid #3a241b;
 }
-
 .item:last-child { border-bottom: 0; }
-
-.item strong {
-  display: block;
-  overflow-wrap: anywhere;
-  font-size: 14px;
-}
-
-.item small {
-  color: var(--muted);
-  font-size: 12px;
-}
-
+.item strong { display: block; overflow-wrap: anywhere; font-size: 14px; }
+.item small { color: var(--muted); font-size: 12px; }
 .status {
-  padding: 5px 8px;
-  border: 1px solid #8a4a24;
-  border-radius: 20px;
-  background: #32180e;
-  color: #ffd58b;
-  font-size: 11px;
-  white-space: nowrap;
+  padding: 5px 8px; border: 1px solid #8a4a24; border-radius: 20px;
+  background: #32180e; color: #ffd58b; font-size: 11px; white-space: nowrap;
 }
-
 .empty {
-  padding: 23px 10px;
-  border: 1px dashed #633a2b;
-  border-radius: 13px;
-  color: var(--muted);
-  text-align: center;
-  font-size: 14px;
+  padding: 23px 10px; border: 1px dashed #633a2b; border-radius: 13px;
+  color: var(--muted); text-align: center; font-size: 14px;
 }
-
 .setting {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 0;
-  border-bottom: 1px solid #3a241b;
+  display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  padding: 14px 0; border-bottom: 1px solid #3a241b;
 }
-
-.setting strong {
-  display: block;
-  font-size: 14px;
-}
-
-.setting small {
-  display: block;
-  margin-top: 3px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
+.setting strong { display: block; font-size: 14px; }
+.setting small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
 .toggle {
-  width: 46px;
-  height: 27px;
-  padding: 3px;
-  border: 1px solid #59466b;
-  border-radius: 99px;
-  background: #3b271e;
-  flex-shrink: 0;
+  width: 46px; height: 27px; padding: 3px; border: 1px solid #59466b;
+  border-radius: 99px; background: #3b271e; flex-shrink: 0;
 }
-
 .toggle::after {
-  display: block;
-  width: 19px;
-  height: 19px;
-  border-radius: 50%;
-  background: #a99ab9;
-  content: "";
-  transition: transform .15s;
+  display: block; width: 19px; height: 19px; border-radius: 50%;
+  background: #a99ab9; content: ""; transition: transform .15s;
 }
-
-.toggle.on {
-  border-color: #ff8a4a;
-  background: #a92c20;
-}
-
-.toggle.on::after {
-  transform: translateX(19px);
-  background: white;
-}
-
+.toggle.on { border-color: #ff8a4a; background: #a92c20; }
+.toggle.on::after { transform: translateX(19px); background: white; }
 .page { display: none; }
 .page.active { display: block; }
-
 .bottom {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 5;
-  padding: 10px 12px;
-  padding-bottom: max(10px, env(safe-area-inset-bottom));
-  border-top: 1px solid #59251a;
-  background: #100906ed;
-  backdrop-filter: blur(16px);
+  position: fixed; right: 0; bottom: 0; left: 0; z-index: 5;
+  padding: 10px 12px; padding-bottom: max(10px, env(safe-area-inset-bottom));
+  border-top: 1px solid #59251a; background: #100906ed; backdrop-filter: blur(16px);
 }
-
-.nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  max-width: 520px;
-  margin: auto;
-}
-
+.nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 520px; margin: auto; }
 .navbtn {
-  padding: 9px 4px;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: #a18d87;
-  font-size: 11px;
-  font-weight: bold;
+  padding: 9px 4px; border: 0; border-radius: 12px; background: transparent;
+  color: #a18d87; font-size: 11px; font-weight: bold;
 }
-
-.navbtn .ico {
-  display: block;
-  margin-bottom: 2px;
-  font-size: 19px;
-}
-
-.navbtn.active {
-  background: #3b1712;
-  color: #ffd3bd;
-  box-shadow: inset 0 0 0 1px #793027;
-}
-
-.footer-note {
-  margin-top: 20px;
-  color: #9b8076;
-  text-align: center;
-  font-size: 10px;
-}
-
+.navbtn .ico { display: block; margin-bottom: 2px; font-size: 19px; }
+.navbtn.active { background: #3b1712; color: #ffd3bd; box-shadow: inset 0 0 0 1px #793027; }
+.footer-note { margin-top: 20px; color: #9b8076; text-align: center; font-size: 10px; }
 .toast {
-  position: fixed;
-  top: 14px;
-  left: 50%;
-  z-index: 10;
-  display: none;
-  width: calc(100% - 30px);
-  max-width: 480px;
-  padding: 13px 15px;
-  transform: translateX(-50%);
-  border: 1px solid #a84c25;
-  border-radius: 13px;
-  background: #351b10;
-  box-shadow: 0 8px 30px #0008;
-  font-size: 13px;
+  position: fixed; top: 14px; left: 50%; z-index: 10; display: none;
+  width: calc(100% - 30px); max-width: 480px; padding: 13px 15px;
+  transform: translateX(-50%); border: 1px solid #a84c25; border-radius: 13px;
+  background: #351b10; box-shadow: 0 8px 30px #0008; font-size: 13px;
 }
-
 .toast.show { display: block; }
-
-.toast strong {
-  display: block;
-  margin-bottom: 3px;
+.toast strong { display: block; margin-bottom: 3px; }
+#errorBanner {
+  display: none; margin: 0 0 12px; padding: 12px; border: 1px solid #a43b2b;
+  border-radius: 12px; background: #3a1210; color: #ffd0c0; font-size: 12px;
 }
-
-@media (max-width: 360px) {
-  .hero h1 { font-size: 27px; }
-  .app {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
-}
+#errorBanner.show { display: block; }
 </style>
 </head>
-
 <body>
 <div class="app">
+  <div id="errorBanner"></div>
 
-<header class="top">
-  <div class="brand">
-    <strong>FREE FIRE</strong>
-    FAN PANEL
-  </div>
-  <div class="pill" id="modePill">● NÃO CONECTADO</div>
-</header>
-
-<main>
-<section class="page active" id="home">
-
-  <div class="hero">
-    <div class="heart" aria-hidden="true">👑💗</div>
-    <div class="eyebrow">FAN PANEL • PROJETO INDEPENDENTE</div>
-    <h1>Painel de Likes</h1>
-    <p>Informe o ID, envie likes e acompanhe o resultado real da API.</p>
-  </div>
-
-  <div class="card">
-    <h2 class="section-title">Sua conta</h2>
-    <p id="userStatus" class="muted">
-      Entre com Google para enviar likes e salvar o histórico.
-    </p>
-    <div class="authrow">
-      <button class="primary" id="loginBtn">Entrar com Google</button>
-      <button class="secondary" id="logoutBtn" hidden>Sair</button>
+  <header class="top">
+    <div class="brand">
+      <strong>FREE FIRE</strong>
+      FAN PANEL
     </div>
-    <div class="notice">
-      O envio usa o servidor (Cloudflare Worker). A chave da API não fica no site.
-    </div>
-  </div>
+    <div class="pill" id="modePill">● NÃO CONECTADO</div>
+  </header>
 
-  <div class="card">
-    <label class="label" for="playerId">ID do jogador</label>
-    <div class="input-wrap">
-      <span>⌕</span>
-      <input id="playerId" inputmode="numeric" autocomplete="off"
-        maxlength="15" placeholder="Digite o ID do Free Fire">
-    </div>
-    <p class="hint">Apenas números. Região: BR.</p>
-    <div class="stats">
-      <span>Envio de likes</span>
-      <div class="count" id="sendStatus">Pacote padrão (200lk)</div>
-    </div>
-
-    <div id="adminBox" class="notice" hidden style="margin-bottom:12px">
-      <strong>Modo administrador</strong><br>
-      Conta ADM detectada no servidor. A Ghost X só oferece o pacote padrão (200lk)
-      e 1 entrega por UID por dia. 1000/2000/3000 não são suportados pelo provedor.
-    </div>
-
-    <button class="primary" id="sendBtn">♡ Enviar likes</button>
-    <div class="notice" id="sendNotice">
-      É preciso estar logado. O painel mostra apenas os likes que a API confirmar.
-    </div>
-  </div>
-
-  <div class="card">
-    <h2 class="section-title">Como funciona</h2>
-    <div class="item">
-      <div>
-        <strong>1. Entre com Google</strong>
-        <small>Identifica sua conta e o histórico.</small>
+  <main>
+    <section class="page active" id="home">
+      <div class="hero">
+        <div class="heart">👑💗</div>
+        <div class="eyebrow">FAN PANEL • PROJETO INDEPENDENTE</div>
+        <h1>Painel de Likes</h1>
+        <p>Informe o ID, envie likes e acompanhe o resultado real da API.</p>
       </div>
-      <span>01</span>
-    </div>
-    <div class="item">
-      <div>
-        <strong>2. Informe o ID</strong>
-        <small>Digite o UID numérico do jogador.</small>
+
+      <div class="card">
+        <h2 class="section-title">Sua conta</h2>
+        <p id="userStatus" class="muted">Entre com Google para enviar likes e salvar o histórico.</p>
+        <div class="authrow">
+          <button type="button" class="primary" id="loginBtn">Entrar com Google</button>
+          <button type="button" class="secondary" id="logoutBtn" hidden>Sair</button>
+        </div>
+        <div class="notice">O envio usa o servidor (Cloudflare Worker). A chave da API não fica no site.</div>
       </div>
-      <span>02</span>
-    </div>
-    <div class="item">
-      <div>
-        <strong>3. Envie e confira</strong>
-        <small>Veja likes enviados e o histórico.</small>
+
+      <div class="card">
+        <label class="label" for="playerId">ID do jogador</label>
+        <div class="input-wrap">
+          <span>⌕</span>
+          <input id="playerId" inputmode="numeric" autocomplete="off" maxlength="15" placeholder="Digite o ID do Free Fire">
+        </div>
+        <p class="hint">Apenas números. Região: BR.</p>
+        <div class="stats">
+          <span>Envio de likes</span>
+          <div class="count" id="sendStatus">Pacote padrão (200lk)</div>
+        </div>
+        <div id="adminBox" class="notice" hidden style="margin-bottom:12px">
+          <strong>Modo administrador</strong><br>
+          Conta ADM detectada. A Ghost X só oferece o pacote 200lk e 1 entrega por UID/dia.
+        </div>
+        <button type="button" class="primary" id="sendBtn">♡ Enviar likes</button>
+        <div class="notice">É preciso estar logado. O painel mostra apenas os likes que a API confirmar.</div>
       </div>
-      <span>03</span>
-    </div>
-  </div>
+    </section>
 
-</section>
-
-<section class="page" id="history">
-  <div class="card">
-    <h2 class="section-title">Histórico</h2>
-    <p class="muted">
-      Cada registro mostra o resultado informado pela API.
-    </p>
-    <div id="historyList" class="empty">
-      Entre com Google para carregar seu histórico.
-    </div>
-    <button class="secondary" id="clearHistory" style="margin-top:14px">
-      Limpar meu histórico
-    </button>
-  </div>
-</section>
-
-<section class="page" id="settings">
-  <div class="card">
-    <h2 class="section-title">Configurações</h2>
-
-    <div class="setting">
-      <div>
-        <strong>Efeitos visuais</strong>
-        <small>Realce neon no painel.</small>
+    <section class="page" id="history">
+      <div class="card">
+        <h2 class="section-title">Histórico</h2>
+        <p class="muted">Cada registro mostra o resultado informado pela API.</p>
+        <div id="historyList" class="empty">Entre com Google para carregar seu histórico.</div>
+        <button type="button" class="secondary" id="clearHistory" style="margin-top:14px">Limpar meu histórico</button>
       </div>
-      <button class="toggle on" id="glowToggle"
-        aria-label="Alternar efeitos visuais"
-        aria-pressed="true"></button>
-    </div>
+    </section>
 
-    <div class="setting">
-      <div>
-        <strong>Confirmar antes de enviar</strong>
-        <small>Pedir confirmação antes do envio.</small>
+    <section class="page" id="settings">
+      <div class="card">
+        <h2 class="section-title">Configurações</h2>
+        <div class="setting">
+          <div>
+            <strong>Efeitos visuais</strong>
+            <small>Realce neon no painel.</small>
+          </div>
+          <button type="button" class="toggle on" id="glowToggle" aria-pressed="true"></button>
+        </div>
+        <div class="setting">
+          <div>
+            <strong>Confirmar antes de enviar</strong>
+            <small>Pedir confirmação antes do envio.</small>
+          </div>
+          <button type="button" class="toggle" id="confirmToggle" aria-pressed="false"></button>
+        </div>
+        <div class="notice">Envio real via Worker + Ghost X (pacote 200lk).</div>
       </div>
-      <button class="toggle" id="confirmToggle"
-        aria-label="Alternar confirmação"
-        aria-pressed="false"></button>
-    </div>
+    </section>
+  </main>
 
-    <div class="setting">
-      <div>
-        <strong>Sobre o projeto</strong>
-        <small>Projeto independente.</small>
-      </div>
-      <span class="pill">v0.4</span>
-    </div>
-
-    <div class="notice">
-      Envio real via Worker + Ghost X (pacote 200lk). Limite do provedor: 1 vez por UID/dia.
-    </div>
-  </div>
-</section>
-</main>
-
-<div class="footer-note">
-  PROJETO INDEPENDENTE • ENVIO VIA API DO SERVIDOR
-</div>
+  <div class="footer-note">PROJETO INDEPENDENTE • ENVIO VIA API DO SERVIDOR</div>
 </div>
 
-<nav class="bottom" aria-label="Navegação principal">
+<nav class="bottom">
   <div class="nav">
-    <button class="navbtn active" data-page="home">
-      <span class="ico">⌂</span>Início
-    </button>
-    <button class="navbtn" data-page="history">
-      <span class="ico">◷</span>Histórico
-    </button>
-    <button class="navbtn" data-page="settings">
-      <span class="ico">⚙</span>Configurações
-    </button>
+    <button type="button" class="navbtn active" data-page="home" id="navHome"><span class="ico">⌂</span>Início</button>
+    <button type="button" class="navbtn" data-page="history" id="navHistory"><span class="ico">◷</span>Histórico</button>
+    <button type="button" class="navbtn" data-page="settings" id="navSettings"><span class="ico">⚙</span>Configurações</button>
   </div>
 </nav>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast" id="toast" role="status"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+const WORKER_URL = "https://painel-likes-backend.kauancostap220.workers.dev";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCz_jA_rAUFuygRyoVNvGKygIYIvxc0weU",
@@ -598,48 +244,53 @@ const firebaseConfig = {
   measurementId: "G-0JE8LPC92Q"
 };
 
-const WORKER_URL = "https://painel-likes-backend.kauancostap220.workers.dev";
+function $(id) { return document.getElementById(id); }
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+function showBanner(msg) {
+  const el = $("errorBanner");
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add("show");
+}
 
-const $ = id => document.getElementById(id);
+function showToast(title, message) {
+  const toast = $("toast");
+  toast.innerHTML = "";
+  const strong = document.createElement("strong");
+  strong.textContent = title;
+  const span = document.createElement("span");
+  span.textContent = message;
+  toast.append(strong, span);
+  toast.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(function () { toast.classList.remove("show"); }, 6000);
+}
+
+function goPage(pageId) {
+  document.querySelectorAll(".page").forEach(function (page) {
+    page.classList.toggle("active", page.id === pageId);
+  });
+  document.querySelectorAll(".navbtn").forEach(function (btn) {
+    btn.classList.toggle("active", btn.getAttribute("data-page") === pageId);
+  });
+}
+
+/* Navegação — registrada cedo, mesmo se o Firebase falhar depois */
+["navHome", "navHistory", "navSettings"].forEach(function (id) {
+  const btn = $(id);
+  if (btn) {
+    btn.addEventListener("click", function () {
+      goPage(btn.getAttribute("data-page"));
+    });
+  }
+});
 
 let currentUser = null;
 let confirmBefore = false;
 let entries = [];
 let isAdmin = false;
-
-function showToast(title, message) {
-  const toast = $("toast");
-  toast.replaceChildren();
-
-  const strong = document.createElement("strong");
-  strong.textContent = title;
-
-  const span = document.createElement("span");
-  span.textContent = message;
-
-  toast.append(strong, span);
-  toast.classList.add("show");
-
-  clearTimeout(showToast._t);
-  showToast._t = setTimeout(() => toast.classList.remove("show"), 6000);
-}
-
-function friendlyError(error) {
-  if (error?.code === "auth/unauthorized-domain") {
-    return "Este domínio não está autorizado no Firebase Authentication.";
-  }
-  if (error?.code === "auth/operation-not-allowed") {
-    return "Ative o login com Google no Firebase Authentication.";
-  }
-  if (error?.code === "permission-denied") {
-    return "O Firestore bloqueou a operação. Confira as regras de segurança.";
-  }
-  return error?.message || "Ocorreu um erro inesperado.";
-}
+let auth = null;
+let db = null;
 
 function updateSendStatusLabel() {
   if (!$("sendStatus")) return;
@@ -648,95 +299,78 @@ function updateSendStatusLabel() {
     : "Pacote padrão (200lk)";
 }
 
-/* Navegação */
-document.querySelectorAll(".navbtn").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".navbtn").forEach(item => {
-      item.classList.toggle("active", item === button);
-    });
-    document.querySelectorAll(".page").forEach(page => {
-      page.classList.toggle("active", page.id === button.dataset.page);
-    });
-  });
-});
+function friendlyError(error) {
+  if (!error) return "Erro inesperado.";
+  if (error.code === "auth/unauthorized-domain") {
+    return "Domínio não autorizado no Firebase. Adicione kauancostap220-debug.github.io";
+  }
+  if (error.code === "auth/popup-blocked") {
+    return "Popup bloqueado. Permita popups para este site e tente de novo.";
+  }
+  if (error.code === "auth/popup-closed-by-user") {
+    return "Login cancelado.";
+  }
+  if (error.code === "permission-denied") {
+    return "Firestore bloqueou a operação. Confira as regras.";
+  }
+  return error.message || String(error);
+}
 
-/* Histórico */
 function renderHistory() {
   const list = $("historyList");
-
   if (!currentUser) {
     list.className = "empty";
     list.textContent = "Entre com Google para carregar seu histórico.";
     return;
   }
-
   if (!entries.length) {
     list.className = "empty";
     list.textContent = "Nenhum envio registrado ainda.";
     return;
   }
-
   list.className = "";
-  list.replaceChildren();
-
-  entries.forEach(entry => {
+  list.innerHTML = "";
+  entries.forEach(function (entry) {
     const row = document.createElement("div");
     row.className = "item";
-
     const info = document.createElement("div");
     const strong = document.createElement("strong");
     const small = document.createElement("small");
-
     const nick = entry.nickname ? " (" + entry.nickname + ")" : "";
     strong.textContent = "ID: " + entry.playerId + nick;
-
-    const date = entry.createdAt?.toDate
-      ? entry.createdAt.toDate()
-      : null;
-
-    let detail = date ? date.toLocaleString("pt-BR") : "Registrado";
-    if (entry.likesGiven != null) {
-      detail += " • +" + entry.likesGiven + " likes";
+    var detail = "Registrado";
+    if (entry.createdAt && entry.createdAt.toDate) {
+      detail = entry.createdAt.toDate().toLocaleString("pt-BR");
     }
-    if (entry.orderNo) {
-      detail += " • Pedido " + entry.orderNo;
-    }
+    if (entry.likesGiven != null) detail += " • +" + entry.likesGiven + " likes";
+    if (entry.orderNo) detail += " • Pedido " + entry.orderNo;
     small.textContent = detail;
-
     info.append(strong, small);
-
     const status = document.createElement("span");
     status.className = "status";
-    if (entry.success) {
-      status.textContent = "Enviado";
-    } else if (entry.error === "ja_recebeu_hoje" || entry.status === 2) {
-      status.textContent = "Já recebeu hoje";
-    } else {
-      status.textContent = "Falhou";
-    }
-
+    if (entry.success) status.textContent = "Enviado";
+    else if (entry.error === "ja_recebeu_hoje" || entry.status === 2) status.textContent = "Já recebeu hoje";
+    else status.textContent = "Falhou";
     row.append(info, status);
     list.append(row);
   });
 }
 
 async function loadHistory() {
-  if (!currentUser) {
+  if (!currentUser || !db) {
     entries = [];
     renderHistory();
     return;
   }
-
+  const { collection, getDocs, query, orderBy } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js");
   const historyQuery = query(
     collection(db, "users", currentUser.uid, "history"),
     orderBy("createdAt", "desc")
   );
-
   const snapshot = await getDocs(historyQuery);
-  entries = snapshot.docs.map(item => ({
-    docId: item.id,
-    ...item.data()
-  }));
+  entries = snapshot.docs.map(function (item) {
+    return Object.assign({ docId: item.id }, item.data());
+  });
   renderHistory();
 }
 
@@ -744,9 +378,7 @@ async function refreshAdminFlag(user) {
   isAdmin = false;
   if ($("adminBox")) $("adminBox").hidden = true;
   updateSendStatusLabel();
-
   if (!user) return;
-
   try {
     const token = await user.getIdToken();
     const res = await fetch(WORKER_URL + "/api/admin/status", {
@@ -756,144 +388,164 @@ async function refreshAdminFlag(user) {
     isAdmin = !!(data && data.ok && data.isAdmin);
     if ($("adminBox")) $("adminBox").hidden = !isAdmin;
     updateSendStatusLabel();
-  } catch (e) {
-    isAdmin = false;
-    if ($("adminBox")) $("adminBox").hidden = true;
-    updateSendStatusLabel();
-  }
+  } catch (e) {}
 }
 
-/* Login Google */
-$("loginBtn").addEventListener("click", async () => {
-  try {
-    await signInWithRedirect(auth, new GoogleAuthProvider());
-  } catch (error) {
-    showToast("Falha no login", friendlyError(error));
-  }
-});
+try {
+  const { initializeApp } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js");
+  const {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
+    onAuthStateChanged,
+    signOut
+  } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js");
+  const {
+    getFirestore,
+    collection,
+    addDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp
+  } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js");
 
-$("logoutBtn").addEventListener("click", async () => {
-  try {
-    await signOut(auth);
-    showToast("Sessão encerrada", "Você saiu da sua conta.");
-  } catch (error) {
-    showToast("Erro ao sair", friendlyError(error));
-  }
-});
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
 
-getRedirectResult(auth).catch(error => {
-  showToast("Não foi possível entrar", friendlyError(error));
-});
-
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
-
-  $("loginBtn").hidden = !!user;
-  $("logoutBtn").hidden = !user;
-
-  $("userStatus").textContent = user
-    ? "Conectado como " + (user.displayName || user.email || "usuário Google") + "."
-    : "Entre com Google para enviar likes e salvar o histórico.";
-
-  $("modePill").textContent = user ? "● CONECTADO" : "● NÃO CONECTADO";
-
-  if (user) {
+  $("loginBtn").addEventListener("click", async function () {
+    const provider = new GoogleAuthProvider();
     try {
-      await loadHistory();
+      await signInWithPopup(auth, provider);
+      showToast("Login", "Conta conectada.");
     } catch (error) {
+      if (error && error.code === "auth/popup-blocked") {
+        try {
+          await signInWithRedirect(auth, provider);
+          return;
+        } catch (e2) {
+          showToast("Falha no login", friendlyError(e2));
+          return;
+        }
+      }
+      showToast("Falha no login", friendlyError(error));
+    }
+  });
+
+  $("logoutBtn").addEventListener("click", async function () {
+    try {
+      await signOut(auth);
+      showToast("Sessão encerrada", "Você saiu da conta.");
+    } catch (error) {
+      showToast("Erro ao sair", friendlyError(error));
+    }
+  });
+
+  getRedirectResult(auth).catch(function (error) {
+    showToast("Login", friendlyError(error));
+  });
+
+  onAuthStateChanged(auth, async function (user) {
+    currentUser = user;
+    $("loginBtn").hidden = !!user;
+    $("logoutBtn").hidden = !user;
+    $("userStatus").textContent = user
+      ? "Conectado como " + (user.displayName || user.email || "usuário Google") + "."
+      : "Entre com Google para enviar likes e salvar o histórico.";
+    $("modePill").textContent = user ? "● CONECTADO" : "● NÃO CONECTADO";
+
+    if (user) {
+      try { await loadHistory(); }
+      catch (error) {
+        entries = [];
+        renderHistory();
+        showToast("Histórico", friendlyError(error));
+      }
+      await refreshAdminFlag(user);
+    } else {
       entries = [];
       renderHistory();
-      showToast("Histórico indisponível", friendlyError(error));
+      await refreshAdminFlag(null);
     }
-    await refreshAdminFlag(user);
-  } else {
-    entries = [];
-    renderHistory();
-    await refreshAdminFlag(null);
-  }
-});
+  });
 
-/* Enviar likes reais via Worker */
-$("sendBtn").addEventListener("click", async () => {
-  const id = $("playerId").value.trim();
+  $("sendBtn").addEventListener("click", async function () {
+    const id = $("playerId").value.trim();
+    if (!/^\d{5,15}$/.test(id)) {
+      showToast("Confira o ID", "Digite um ID numérico com 5 a 15 dígitos.");
+      return;
+    }
+    if (!currentUser) {
+      showToast("Entre primeiro", "Faça login com Google para enviar likes.");
+      return;
+    }
+    if (confirmBefore && !window.confirm("Enviar likes para o ID " + id + " (BR)?")) {
+      return;
+    }
 
-  if (!/^\d{5,15}$/.test(id)) {
-    showToast("Confira o ID", "Digite um ID numérico com 5 a 15 dígitos.");
-    $("playerId").focus();
-    return;
-  }
+    const button = $("sendBtn");
+    button.disabled = true;
+    $("sendStatus").textContent = "Enviando...";
 
-  if (!currentUser) {
-    showToast("Entre primeiro", "Faça login com Google para enviar likes.");
-    return;
-  }
+    try {
+      const token = await currentUser.getIdToken();
+      const res = await fetch(WORKER_URL + "/api/likes/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token
+        },
+        body: JSON.stringify({ uid: id, region: "BR" })
+      });
+      const data = await res.json();
 
-  if (
-    confirmBefore &&
-    !window.confirm("Enviar likes para o ID " + id + " (região BR)?")
-  ) {
-    return;
-  }
-
-  const button = $("sendBtn");
-  button.disabled = true;
-  if ($("sendStatus")) $("sendStatus").textContent = "Enviando...";
-
-  try {
-    const token = await currentUser.getIdToken();
-
-    const res = await fetch(WORKER_URL + "/api/likes/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      },
-      body: JSON.stringify({
-        uid: id,
-        region: "BR"
-      })
-    });
-
-    const data = await res.json();
-
-    await addDoc(
-      collection(db, "users", currentUser.uid, "history"),
-      {
+      await addDoc(collection(db, "users", currentUser.uid, "history"), {
         playerId: id,
         region: "BR",
         success: !!data.ok,
-        status: data.status ?? null,
+        status: data.status != null ? data.status : null,
         error: data.error || null,
         message: data.message || null,
         nickname: data.nickname || null,
-        likesBefore: data.likesBefore ?? null,
-        likesGiven: data.likesGiven ?? null,
-        likesAfter: data.likesAfter ?? null,
+        likesBefore: data.likesBefore != null ? data.likesBefore : null,
+        likesGiven: data.likesGiven != null ? data.likesGiven : null,
+        likesAfter: data.likesAfter != null ? data.likesAfter : null,
         orderNo: data.orderNo || null,
-        charged: data.charged ?? null,
-        balance: data.balance ?? null,
+        charged: data.charged != null ? data.charged : null,
+        balance: data.balance != null ? data.balance : null,
         role: data.role || "user",
         createdAt: serverTimestamp()
+      });
+
+      await loadHistory();
+
+      if (data.ok && data.status === 1) {
+        showToast(
+          "Likes enviados",
+          "Enviados: " + (data.likesGiven != null ? data.likesGiven : "?") +
+          " | Antes: " + (data.likesBefore != null ? data.likesBefore : "?") +
+          " | Depois: " + (data.likesAfter != null ? data.likesAfter : "?")
+        );
+        $("playerId").value = "";
+      } else if (data.error === "ja_recebeu_hoje" || data.status === 2) {
+        showToast("Já recebeu hoje", data.message || "Este UID já recebeu likes hoje.");
+      } else {
+        showToast("Não foi possível enviar", data.message || data.error || "Falha no envio.");
       }
-    );
+    } catch (error) {
+      showToast("Erro", friendlyError(error));
+    } finally {
+      button.disabled = false;
+      updateSendStatusLabel();
+    }
+  });
 
-    await loadHistory();
-
-    if (data.ok && data.status === 1) {
-      showToast(
-        "Likes enviados",
-        "Enviados: " + (data.likesGiven ?? "?") +
-        " | Antes: " + (data.likesBefore ?? "?") +
-        " | Depois: " + (data.likesAfter ?? "?") +
-        (data.orderNo ? " | Pedido: " + data.orderNo : "")
-      );
-      $("playerId").value = "";
-    } else if (data.error === "ja_recebeu_hoje" || data.status === 2) {
-      showToast(
-        "Já recebeu hoje",
-        data.message || "Este UID já recebeu likes hoje no provedor."
-      );
-    } else if (data.error === "token_ausente" || data.error === "token_invalido") {
-      showToast("Sessão", "Faça login novamente e tente de novo.");
-    } else if (data.error === "ghostx_nao_configurado") {
-      showToast("Servidor", "Chave Ghost X não configurada no Worke
+  $("clearHistory").addEventListener("click", async function () {
+    if (!currentUser) {
+      showToast("Entre primeiro", "Faça login para acessar o histórico.");
+      return;
+    }
+    if (!entries.length) {
+     
